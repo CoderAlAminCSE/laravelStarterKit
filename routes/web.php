@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,5 +15,14 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('backend.dashboard.index');
+    return redirect('/login');
 });
+
+Route::group(['middleware' => ['auth']], function () {
+    Route::get('/dashboard', function () {
+        return view('backend.dashboard.index');
+    });
+});
+
+
+Auth::routes();
