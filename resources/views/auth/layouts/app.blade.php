@@ -3,7 +3,7 @@
 <!--begin::Head-->
 
 <head>
-    <base href="../../../" />
+    <base href="#" />
     <title>@yield('title')</title>
     <meta charset="utf-8" />
     <meta name="description"
