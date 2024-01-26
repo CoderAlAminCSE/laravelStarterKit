@@ -1,4 +1,5 @@
 @extends('backend.layout.master')
+@section('title', 'Dashboard')
 @section('content')
     <div class="d-flex flex-column flex-column-fluid">
 

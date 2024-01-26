@@ -27,7 +27,16 @@
 
                 <!--begin::Main-->
                 <div class="app-main flex-column flex-row-fluid" id="kt_app_main">
-
+                    @if (Session::has('error'))
+                        <div class="alert alert-danger m-3">
+                            {{ Session::get('error') }}
+                        </div>
+                    @endif
+                    @if (Session::has('success'))
+                        <div class="alert alert-success m-3">
+                            {{ Session::get('success') }}
+                        </div>
+                    @endif
                     <!--begin::Content wrapper-->
                     @yield('content')
                     <!--end::Content wrapper-->
@@ -45,6 +54,14 @@
     </div>
     <!--end::App-->
 
+    <!--begin::Scrolltop-->
+    <div id="kt_scrolltop" class="scrolltop" data-kt-scrolltop="true">
+        <i class="ki-duotone ki-arrow-up">
+            <span class="path1"></span>
+            <span class="path2"></span>
+        </i>
+    </div>
+    <!--end::Scrolltop-->
 
     <!--begin::Javascript-->
     <script>
