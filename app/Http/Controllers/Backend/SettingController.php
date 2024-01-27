@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers\Backend;
 
+use App\Models\Setting;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Mail\TestConnectionMail;
 use App\Http\Controllers\Controller;
-use App\Models\Setting;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\UpdateSmtpRequest;
 
 class SettingController extends Controller
 {
@@ -97,5 +100,49 @@ class SettingController extends Controller
         }
         Session::flash('success', 'Successfully updated');
         return back();
+    }
+
+
+    /**
+     * Returns to the SMTP info page.
+     */
+    public function showSmtpSettingsForm()
+    {
+        return view('backend.settings.smtp_settings');
+    }
+
+
+    /**
+     * Update SMTP
+     */
+    public function updateSmtp(UpdateSmtpRequest $request)
+    {
+        try {
+            // Update the mailer value from .env file
+            overWriteEnvFile('MAIL_MAILER', $request->driver);
+            overWriteEnvFile('MAIL_HOST', $request->host);
+            overWriteEnvFile('MAIL_PORT', $request->port);
+            overWriteEnvFile('MAIL_USERNAME', $request->username);
+            overWriteEnvFile('MAIL_PASSWORD', $request->password);
+            overWriteEnvFile('MAIL_ENCRYPTION', $request->encryption);
+            overWriteEnvFile('MAIL_FROM_ADDRESS', $request->from);
+            overWriteEnvFile('MAIL_FROM_NAME', $request->from_name);
+            return back()->with('success', 'SMTP updated successfully');
+        } catch (\Exception $e) {
+            return back()->with('error', 'Error: ' . $e->getMessage());
+        }
+    }
+
+    /**
+     * SMTP connection test.
+     */
+    public function smtpConnectionTest()
+    {
+        try {
+            Mail::to('hello@gmail.com')->send(new TestConnectionMail());
+            return back()->with('success', 'SMTP connected successfully');
+        } catch (\Exception $e) {
+            return back()->with('error', 'Error: Something went wrong');
+        }
     }
 }
