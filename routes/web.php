@@ -39,7 +39,7 @@ Route::post('/email/verification-notification', function (Request $request) {
 Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::get('/dashboard', function () {
         return view('backend.dashboard.index');
-    });
+    })->name('dashboard');
 });
 
 

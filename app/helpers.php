@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Setting;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -7,4 +8,11 @@ use Illuminate\Support\Facades\Auth;
 function loggedInUser()
 {
   return Auth::user();
+}
+
+// get value from "settings" table
+function settings($name)
+{
+  $setting = Setting::where('name', $name)->first();
+  return $setting ? $setting->value : '';
 }
