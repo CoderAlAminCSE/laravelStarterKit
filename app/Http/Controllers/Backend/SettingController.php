@@ -140,9 +140,13 @@ class SettingController extends Controller
     {
         try {
             Mail::to('hello@gmail.com')->send(new TestConnectionMail());
-            return back()->with('success', 'SMTP connected successfully');
+            return response()->json([
+                'message' => "SMTP Connected Successfully",
+            ]);
         } catch (\Exception $e) {
-            return back()->with('error', 'Error: Something went wrong');
+            return response()->json([
+                'error' => 'Error: Something went wrong',
+            ], 500);
         }
     }
 }

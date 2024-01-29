@@ -61,6 +61,7 @@
     <script>
         var hostUrl = "{{ asset('assets/backend') }}/";
     </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!--begin::Global Javascript Bundle(mandatory for all pages)-->
     <script src="{{ asset('assets/backend') }}/plugins/global/plugins.bundle.js"></script>
     <script src="{{ asset('assets/backend') }}/js/scripts.bundle.js"></script>
@@ -80,6 +81,7 @@
     <script src="https://cdn.amcharts.com/lib/5/geodata/worldTimeZoneAreasLow.js"></script>
     <script src="{{ asset('assets/backend') }}/plugins/custom/datatables/datatables.bundle.js"></script>
     <!--end::Vendors Javascript-->
+    @yield('script')
     <!--begin::Custom Javascript(used for this page only)-->
     <script src="{{ asset('assets/backend') }}/js/widgets.bundle.js"></script>
     <script src="{{ asset('assets/backend') }}/js/custom/widgets.js"></script>

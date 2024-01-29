@@ -1,46 +1,46 @@
 @extends('backend.layout.master')
 @section('title', ' SMTP Settings')
 @section('content')
- <!--begin::Toolbar-->
- <div id="kt_app_toolbar" class="app-toolbar py-3 py-lg-6">
-    <!--begin::Toolbar container-->
-    <div id="kt_app_toolbar_container" class="app-container container-xxl d-flex flex-stack">
-        <!--begin::Page title-->
-        <div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
-            <!--begin::Title-->
-            <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">
-                Settings</h1>
-            <!--end::Title-->
-            <!--begin::Breadcrumb-->
-            <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0 pt-1">
-                <!--begin::Item-->
-                <li class="breadcrumb-item text-muted">
-                    <a href="{{ route('dashboard') }}" class="text-muted text-hover-primary">Home</a>
-                </li>
-                <!--end::Item-->
-                <!--begin::Item-->
-                <li class="breadcrumb-item">
-                    <span class="bullet bg-gray-400 w-5px h-2px"></span>
-                </li>
-                <!--end::Item-->
-                <!--begin::Item-->
-                <li class="breadcrumb-item text-muted">Settings</li>
-                <!--begin::Item-->
-                <li class="breadcrumb-item">
-                    <span class="bullet bg-gray-400 w-5px h-2px"></span>
-                </li>
-                <li class="breadcrumb-item text-muted">SMTP Settings</li>
-                <!--end::Item-->
-                <!--end::Item-->
-            </ul>
-            <!--end::Breadcrumb-->
+    <!--begin::Toolbar-->
+    <div id="kt_app_toolbar" class="app-toolbar py-3 py-lg-6">
+        <!--begin::Toolbar container-->
+        <div id="kt_app_toolbar_container" class="app-container container-xxl d-flex flex-stack">
+            <!--begin::Page title-->
+            <div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
+                <!--begin::Title-->
+                <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">
+                    Settings</h1>
+                <!--end::Title-->
+                <!--begin::Breadcrumb-->
+                <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0 pt-1">
+                    <!--begin::Item-->
+                    <li class="breadcrumb-item text-muted">
+                        <a href="{{ route('dashboard') }}" class="text-muted text-hover-primary">Home</a>
+                    </li>
+                    <!--end::Item-->
+                    <!--begin::Item-->
+                    <li class="breadcrumb-item">
+                        <span class="bullet bg-gray-400 w-5px h-2px"></span>
+                    </li>
+                    <!--end::Item-->
+                    <!--begin::Item-->
+                    <li class="breadcrumb-item text-muted">Settings</li>
+                    <!--begin::Item-->
+                    <li class="breadcrumb-item">
+                        <span class="bullet bg-gray-400 w-5px h-2px"></span>
+                    </li>
+                    <li class="breadcrumb-item text-muted">SMTP Settings</li>
+                    <!--end::Item-->
+                    <!--end::Item-->
+                </ul>
+                <!--end::Breadcrumb-->
+            </div>
+            <!--end::Page title-->
         </div>
-        <!--end::Page title-->
+        <!--end::Toolbar container-->
     </div>
-    <!--end::Toolbar container-->
-</div>
-<!--end::Toolbar-->
-   <div id="kt_app_content_container" class="app-container container-xxl">
+    <!--end::Toolbar-->
+    <div id="kt_app_content_container" class="app-container container-xxl">
 
         <!--begin::Basic info-->
         <div class="card mb-5 mb-xl-10">
@@ -54,11 +54,10 @@
                 </div>
 
                 <div class="card-header d-flex justify-content-end py-6 px-9">
-                    <form action="{{ route('smtp.connection.test') }}" method="POST">
-                        @csrf
-                        <button type="submit" class="btn btn-primary" id="kt_account_profile_details_submit">Test
-                            Connection</button>
-                    </form>
+                    <button class="btn btn-primary" id="smtpConnectionTest">
+                        Test Connection
+                        <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+                    </button>
                 </div>
                 <!--end::Card title-->
             </div>
@@ -81,11 +80,9 @@
                                 <div class="mb-5">
                                     <div class="w-100">
                                         <!--begin::Select2-->
-                                        <select class="form-select form-select-solid" name="driver"
-                                            data-control="select2" data-hide-search="true"
-                                            data-placeholder="Select a layout">
-                                            <option value="smtp"
-                                                {{ env('MAIL_MAILER') === 'smtp' ? 'selected' : null }}>
+                                        <select class="form-select form-select-solid" name="driver" data-control="select2"
+                                            data-hide-search="true" data-placeholder="Select a layout">
+                                            <option value="smtp" {{ env('MAIL_MAILER') === 'smtp' ? 'selected' : null }}>
                                                 {{ __('SMTP') }} </option>
                                             <option value="sendmail"
                                                 {{ env('MAIL_MAILER') === 'sendmail' ? 'selected' : null }}>
@@ -166,8 +163,7 @@
                                         <select class="form-select form-select-solid" name="encryption"
                                             data-control="select2" data-hide-search="true"
                                             data-placeholder="Select Encryption type">
-                                            <option value=""
-                                                {{ env('MAIL_ENCRYPTION') === '' ? 'selected' : null }}>
+                                            <option value="" {{ env('MAIL_ENCRYPTION') === '' ? 'selected' : null }}>
                                                 {{ __('No Encryption') }}
                                             </option>
                                             <option value="tls"
@@ -231,5 +227,9 @@
         </div>
         <!--end::Basic info-->
     </div>
+    <input type="hidden" id="smtpConnectionTestRoute" value="{{ route('smtp.connection.test') }}">
+@endsection
 
+@section('script')
+    <script src="{{ asset('assets/backend') }}/js/backend/smtp_settings.js"></script>
 @endsection
