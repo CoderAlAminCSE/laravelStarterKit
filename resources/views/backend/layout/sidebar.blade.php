@@ -57,6 +57,64 @@
                      </div>
                      <!--end:Dashboard Menu-->
 
+                     <!--begin: Users Menu -->
+                     <div data-kt-menu-trigger="click"
+                         class="menu-item here {{ strpos(Route::getCurrentRoute()->uri(), 'dashboard/user') === 0 ? 'show' : '' }} || {{ strpos(Route::getCurrentRoute()->uri(), 'dashboard/role') === 0 ? 'show' : '' }} || {{ strpos(Route::getCurrentRoute()->uri(), 'dashboard/permission') === 0 ? 'show' : '' }} menu-accordion">
+                         <!--begin:Menu link-->
+                         <span class="menu-link">
+                             <span class="menu-icon">
+                                 <i class="ki-duotone ki-user fs-2">
+                                     <span class="path1"></span>
+                                     <span class="path2"></span>
+                                     <span class="path3"></span>
+                                 </i>
+                             </span>
+                             <span class="menu-title">User Management</span>
+                             <span class="menu-arrow"></span>
+                         </span>
+                         <!--end:Menu link-->
+                         <!--begin:Menu sub-->
+                         <div class="menu-sub menu-sub-accordion">
+                             @can('user-list')
+                                 <div class="menu-item">
+                                     <a class="menu-link {{ Route::getCurrentRoute()->uri() == 'dashboard/user/list' ? 'active' : '' }}"
+                                         href="{{ route('user.index') }}">
+                                         <span class="menu-bullet">
+                                             <span class="bullet bullet-dot"></span>
+                                         </span>
+                                         <span class="menu-title">Users</span>
+                                     </a>
+                                 </div>
+                             @endcan
+
+                             <!--begin:Menu item-->
+                             <div class="menu-item">
+                                 <a class="menu-link {{ strpos(Route::getCurrentRoute()->uri(), 'dashboard/role') === 0 ? 'active' : '' }}"
+                                     href="{{ route('role.index') }}">
+                                     <span class="menu-bullet">
+                                         <span class="bullet bullet-dot"></span>
+                                     </span>
+                                     <span class="menu-title">Roles</span>
+                                 </a>
+                             </div>
+                             <!--end:Menu item-->
+
+                             <!--begin:Menu item-->
+                             <div class="menu-item">
+                                 <a class="menu-link {{ Route::getCurrentRoute()->uri() == 'dashboard/permission/list' ? 'active' : '' }}"
+                                     href="{{ route('permission.index') }}">
+                                     <span class="menu-bullet">
+                                         <span class="bullet bullet-dot"></span>
+                                     </span>
+                                     <span class="menu-title">Permissions</span>
+                                 </a>
+                             </div>
+                             <!--end:Menu item-->
+                         </div>
+                         <!--end:Menu sub-->
+                     </div>
+                     <!--end: Users Menu -->
+
                      <!--begin: Settings Menu -->
                      <div data-kt-menu-trigger="click"
                          class="menu-item here {{ strpos(Route::getCurrentRoute()->uri(), 'dashboard/setting') === 0 ? 'show' : '' }} menu-accordion">
